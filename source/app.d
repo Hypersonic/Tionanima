@@ -42,8 +42,8 @@ void main()
                     renderer.drawRect((width) - (x + (width / 2)) - (size / 2),
                             (height) - (y + (height / 2)) - (size / 2),
                             size, size);
-                    renderer.drawRect(x + (width / 2) - (size / 2),
-                            (height) - (y + (height / 2)) - (size / 2),
+                    renderer.drawRect(x + (width / 2) - (size/ 2),
+                            (height) - (y + (height / 2)) - (size/ 2),
                             size, size);
                     renderer.drawRect((width) - (x + (width / 2)) - (size / 2),
                             y + (height / 2) - (size / 2),
@@ -64,7 +64,7 @@ void main()
             int num_trails = 10;
             foreach(i; 1 .. num_trails) {
                 if (i == factor) continue;
-                float theta = t.to!float / (factor + i);
+                float theta = t.to!float / ((factor * 25 )+ i);
                 renderer.setColor(
                         ((i.to!float / num_trails) * 255).to!int,
                         ((i.to!float / num_trails) * 255).to!int,
@@ -88,7 +88,7 @@ void main()
             } else {
                 factor -= 4;
             }
-            if (t > 10000){
+            if (t > 12000){
                 stage++;
             }
         } else {
