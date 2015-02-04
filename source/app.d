@@ -34,7 +34,6 @@ void main()
     int stage = 0;
     while(running) {
         ++t;
-        writeln("t: ", t);
         sdl2.processEvents();
         renderer.setColor(255, 255, 255, 0);
         if (stage == 0) {
