@@ -32,7 +32,7 @@ void main()
     auto factor = 1.0f;
     auto running = true;
     bool ascending = true;
-    int stage = 2;
+    int stage = 0;
     while(running) {
         ++t;
         sdl2.processEvents();
@@ -90,10 +90,15 @@ void main()
                 factor -= 4;
             }
         } else if (stage == 2) {
-            foreach (x; iota(2, width, 12)) {
-                foreach (y; iota(2, height, 12)) {
-                    renderer.setColor(x / 4, y / 4, 255, 0);
-                    renderer.fillRect(x, y, 10, 10);
+            foreach (k; 1 .. 10) {
+                foreach (i; 0 .. 100) {
+                    renderer.setColor(i, k, i);
+                    auto x = (t - i + k * 100) % width;
+                    auto y = height / 2 + (sin((t - i) / 100.0) * height / k).to!int;
+                    renderer.fillRect(x, y, 20, 20);
+                    renderer.fillRect(width - x, y, 20, 20);
+                    renderer.fillRect(x, height - y, 20, 20);
+                    renderer.fillRect(width - x, height - y, 20, 20);
                 }
             }
         } else {
