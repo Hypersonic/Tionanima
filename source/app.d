@@ -8,10 +8,6 @@ import std.random;
 import gfm.core;
 import gfm.sdl2;
 
-double geometry_function(double x, double y) {
-    return cos(x) + sin(y);
-}
-
 void main()
 {
     int width = 1000;
@@ -33,7 +29,7 @@ void main()
     auto factor = 1.0f;
     auto running = true;
     bool ascending = true;
-    int stage = 0;
+    int stage = 2;
     while(running) {
         ++t;
         ++t_s;
@@ -125,7 +121,7 @@ void main()
                     renderer.fillRect(width - x, height - y, 20, 20);
                 }
             }
-            if (t_s > 1000) {
+            if (t_s > 2000) {
                 stage++;
                 t_s = 0;
             }
