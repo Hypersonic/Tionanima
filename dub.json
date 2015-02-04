@@ -1,0 +1,9 @@
+{
+	"name": "tionanima",
+	"description": "A minimal D application.",
+	"copyright": "Copyright © 2015, josh",
+	"authors": ["josh"],
+	"dependencies": {
+        "gfm": ">=2.0.10"
+	}
+}
