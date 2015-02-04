@@ -59,7 +59,7 @@ void main()
             size = (width * abs(sin(t / 100.0f)) / factor).to!int + 10;
             if (factor > size * 5) {
                 stage++;
-                factor = 1.0f;
+                factor = 3.0f;
             }
         } else if (stage == 1) {
             int num_trails = 10;
