@@ -72,12 +72,12 @@ void main()
                         0);
                 foreach (r; iota(0, factor)) {
                     renderer.drawRect(
-                            width - ((r * cos(theta)).to!int + width / 2) - (size/2),
-                            height - ((r * sin(theta)).to!int + height / 2) - (size/2),
+                            width - ((r * cos(theta + r)).to!int + width / 2) - (size/2),
+                            height - ((r * sin(theta + r)).to!int + height / 2) - (size/2),
                             size, size);
                 }
             }
-            if (ascending && factor > sqrt(width.to!float * height.to!float) / 4) {
+            if (ascending && factor > sqrt(width.to!float * height.to!float)) {
                 ascending = false;
             } else if (!ascending && factor < 10) {
                 ascending = true;
@@ -86,7 +86,7 @@ void main()
             if (ascending) {
                 factor *= 1.003;
             } else {
-                factor -= 1;
+                factor -= 4;
             }
             if (t > 10000){
                 stage++;
