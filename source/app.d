@@ -3,6 +3,7 @@ import std.typecons;
 import std.math;
 import std.range;
 import std.conv;
+import std.random;
 
 import gfm.core;
 import gfm.sdl2;
@@ -31,7 +32,7 @@ void main()
     auto factor = 1.0f;
     auto running = true;
     bool ascending = true;
-    int stage = 0;
+    int stage = 2;
     while(running) {
         ++t;
         sdl2.processEvents();
@@ -80,7 +81,7 @@ void main()
             if (ascending && factor > sqrt(width.to!float * height.to!float)) {
                 ascending = false;
             } else if (!ascending && factor < 10) {
-                ascending = true;
+                stage++;
             }
 
             if (ascending) {
@@ -88,8 +89,12 @@ void main()
             } else {
                 factor -= 4;
             }
-            if (t > 12000){
-                stage++;
+        } else if (stage == 2) {
+            foreach (x; iota(2, width, 12)) {
+                foreach (y; iota(2, height, 12)) {
+                    renderer.setColor(x / 4, y / 4, 255, 0);
+                    renderer.fillRect(x, y, 10, 10);
+                }
             }
         } else {
             running = false;
