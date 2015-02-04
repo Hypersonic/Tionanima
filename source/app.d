@@ -65,12 +65,12 @@ void main()
             foreach(i; 1 .. num_trails) {
                 if (i == factor) continue;
                 float theta = t.to!float / ((factor * 25 )+ i);
-                renderer.setColor(
-                        ((i.to!float / num_trails) * 255).to!int,
-                        ((i.to!float / num_trails) * 255).to!int,
-                        ((i.to!float / num_trails) * 255).to!int,
-                        0);
                 foreach (r; iota(0, factor)) {
+                    renderer.setColor(
+                            ((i.to!float / num_trails) * 255 * (r % 2 + 1)).to!int,
+                            ((i.to!float / num_trails) * 255 * (r % 3 + 1)).to!int,
+                            ((i.to!float / num_trails) * 255 * (r % 4 + 1)).to!int,
+                            0);
                     renderer.drawRect(
                             width - ((r * cos(theta + r)).to!int + width / 2) - (size/2),
                             height - ((r * sin(theta + r)).to!int + height / 2) - (size/2),
