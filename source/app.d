@@ -29,12 +29,14 @@ void main()
     auto offset = 2;
     auto size = 10;
     auto t = 0;
+    auto t_s = 0; // time into the step
     auto factor = 1.0f;
     auto running = true;
     bool ascending = true;
     int stage = 0;
     while(running) {
         ++t;
+        ++t_s;
         sdl2.processEvents();
         renderer.setColor(255, 255, 255, 0);
         if (stage == 0) {
@@ -59,6 +61,7 @@ void main()
             size = (width * abs(sin(t / 100.0f)) / factor).to!int + 10;
             if (factor > size * 5) {
                 stage++;
+                t_s = 0;
                 factor = 3.0f;
             }
         } else if (stage == 1) {
@@ -82,6 +85,7 @@ void main()
                 ascending = false;
             } else if (!ascending && factor < 10) {
                 stage++;
+                t_s = 0;
             }
 
             if (ascending) {
@@ -100,6 +104,10 @@ void main()
                     renderer.fillRect(x, height - y, 20, 20);
                     renderer.fillRect(width - x, height - y, 20, 20);
                 }
+            }
+            if (t_s > 1000) {
+                stage++;
+                t_s = 0;
             }
         } else {
             running = false;
