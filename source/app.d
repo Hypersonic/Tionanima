@@ -97,8 +97,28 @@ void main()
             foreach (k; 1 .. 10) {
                 foreach (i; 0 .. 100) {
                     renderer.setColor(i, k, i);
-                    auto x = (t - i + k * 100) % width;
+                    auto x = ((t - i + k * 100) % width);
                     auto y = height / 2 + (sin((t - i) / 100.0) * height / k).to!int;
+                    renderer.fillRect(x, y, 20, 20);
+                    renderer.fillRect(width - x, y, 20, 20);
+                    renderer.fillRect(x, height - y, 20, 20);
+                    renderer.fillRect(width - x, height - y, 20, 20);
+                }
+            }
+            if (t_s > 1000) {
+                stage++;
+                t_s = 0;
+            }
+        } else if (stage == 3) {
+            foreach (k; 1 .. 10) {
+                foreach (i; 0 .. 100) {
+                    renderer.setColor(20 - i, k, i);
+                    auto x = ((t - i + k * 100) * t_s % width);
+                    auto y = height / 2 +
+                        (
+                         sin((t - i) / 100.0) * height / k
+                         / (t_s / 20.0f)
+                        ).to!int;
                     renderer.fillRect(x, y, 20, 20);
                     renderer.fillRect(width - x, y, 20, 20);
                     renderer.fillRect(x, height - y, 20, 20);
