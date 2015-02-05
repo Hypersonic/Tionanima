@@ -157,7 +157,7 @@ void main()
             foreach (x; iota(0, width)) {
                 auto dx = 0.0f;
                 foreach (i; 1 .. 64) {
-                    dx += cos(x / (2.0f * i)+ t_s / 10.0f);
+                    dx += cos(x / (3.0f * i) + t_s / 10.0f);
                 }
                 renderer.drawLine(x, height / 2 + (dx * 10).to!int,
                         x, height/2
