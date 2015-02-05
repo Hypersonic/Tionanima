@@ -153,16 +153,15 @@ void main()
                 t_s = 0;
             }
         } else if (stage == 6) {
-            auto maxval = 255;
-            foreach (k; iota(0, maxval, 2)) {
-                renderer.setColor(k, k, k);
-                foreach (x; iota(0, width)) {
-                    float h = 0;
-                    foreach (i; recurrence!"a[n-1] * 2"(1).take(7)) {
-                        h += cos(x / (100.0 / i) + (k + t_s) / 10.0) * 20 / i;
-                    }
-                    renderer.drawPoint(x, height / 2 + (h * 10).to!int);
+            renderer.setColor(255, 255, 255);
+            foreach (x; iota(0, width)) {
+                auto dx = 0.0f;
+                foreach (i; 1 .. 64) {
+                    dx += cos(x / (2.0f * i)+ t_s / 10.0f);
                 }
+                renderer.drawLine(x, height / 2 + (dx * 10).to!int,
+                        x, height/2
+                        );
             }
         } else {
             running = false;
