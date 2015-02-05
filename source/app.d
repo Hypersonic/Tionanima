@@ -29,7 +29,7 @@ void main()
     auto factor = 1.0f;
     auto running = true;
     bool ascending = true;
-    int stage = 2;
+    int stage = 5;
     while(running) {
         ++t;
         ++t_s;
@@ -113,7 +113,7 @@ void main()
                     auto y = height / 2 +
                         (
                          sin((t - i) / 100.0) * height / k
-                         / (t_s / 20.0f)
+                         / (t_s * t_s / 20.0f)
                         ).to!int;
                     renderer.fillRect(x, y, 20, 20);
                     renderer.fillRect(width - x, y, 20, 20);
@@ -121,10 +121,36 @@ void main()
                     renderer.fillRect(width - x, height - y, 20, 20);
                 }
             }
-            if (t_s > 2000) {
+            if (t_s > 100) {
                 stage++;
                 t_s = 0;
+                size = 20;
             }
+        } else if (stage == 4) {
+            factor = 10;
+                    renderer.setColor(255, 10, 100);
+                renderer.fillRect(
+                        (t_s * factor).to!int,
+                        height / 2 - size / t_s / 2,
+                        (width - (t_s * factor) * 2).to!int,
+                        size / t_s
+                        );
+            if (t_s * factor >= width / 2) {
+                stage++;
+                t_s = 0;
+                size = 10000;
+            }
+        } else if (stage == 5) {
+            foreach (y; iota(0, height + size, size)) {
+                foreach (x; iota(0, width + size, size)) {
+                    auto color = (x + t_s * 100) % (y + 1);
+                    renderer.setColor(color, color, color, 0);
+                    renderer.fillRect(x, y, size, size);
+                }
+            }
+            if (t_s % 10 == 0 && size > 4)
+                size--;
+        
         } else {
             running = false;
         }
