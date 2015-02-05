@@ -29,7 +29,7 @@ void main()
     auto factor = 1.0f;
     auto running = true;
     bool ascending = true;
-    int stage = 5;
+    int stage = 6;
     while(running) {
         ++t;
         ++t_s;
@@ -138,19 +138,32 @@ void main()
             if (t_s * factor >= width / 2) {
                 stage++;
                 t_s = 0;
-                size = 10000;
+                size = 8;
             }
         } else if (stage == 5) {
-            foreach (y; iota(0, height + size, size)) {
-                foreach (x; iota(0, width + size, size)) {
-                    auto color = (x + t_s * 100) % (y + 1);
-                    renderer.setColor(color, color, color, 0);
+            foreach (y; iota(0, height, size)) {
+                foreach (x; iota(0, width, size)) {
+                    auto color = (x + t_s * 60) % (y + 1);
+                    renderer.setColor(color % 127, color % 63, color, 0);
                     renderer.fillRect(x, y, size, size);
                 }
             }
-            if (t_s % 10 == 0 && size > 4)
-                size--;
-        
+            if (t_s > 100) {
+                stage++;
+                t_s = 0;
+            }
+        } else if (stage == 6) {
+            auto maxval = 255;
+            foreach (k; iota(0, maxval, 2)) {
+                renderer.setColor(k, k, k);
+                foreach (x; iota(0, width)) {
+                    float h = 0;
+                    foreach (i; recurrence!"a[n-1] * 2"(1).take(7)) {
+                        h += cos(x / (100.0 / i) + (k + t_s) / 10.0) * 20 / i;
+                    }
+                    renderer.drawPoint(x, height / 2 + (h * 10).to!int);
+                }
+            }
         } else {
             running = false;
         }
