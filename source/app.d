@@ -8,6 +8,18 @@ import std.random;
 import gfm.core;
 import gfm.sdl2;
 
+void drawBillboard(SDL2Renderer renderer, string[] billboard, int x, int y, int size) {
+    foreach (dy, row; billboard) {
+        foreach (dx, col; row) {
+            if (col == 'x') {
+                renderer.fillRect(
+                        ((x + dx) * size).to!int,
+                        ((y + dy) * size).to!int,
+                        size, size);
+            }
+        }
+    }
+}
 void main()
 {
     int width = 1000;
@@ -65,16 +77,9 @@ void main()
                     ];
                 renderer.setColor(0, 128, 0);
                 size = 10;
-                foreach (y, row; billboard) {
-                    foreach (x, col; row) {
-                        if (col == 'x') {
-                            renderer.fillRect(
-                                    ((width / 2 / size - row.length.to!int / 2) + x.to!int) * size,
-                                    ((height / 2 / size - billboard.length.to!int / 2) + y.to!int) * size,
-                                    size, size);
-                        }
-                    }
-                }
+                auto x = (width / 2 / size - billboard[0].length.to!int / 2).to!int;
+                auto y = (height / 2 / size - billboard.length.to!int / 2).to!int;
+                renderer.drawBillboard(billboard, x, y, size);
             }
             if (t_s >= 100) {
                 t_s = 0;
