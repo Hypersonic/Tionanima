@@ -13,8 +13,8 @@ void drawBillboard(SDL2Renderer renderer, string[] billboard, int x, int y, int 
         foreach (dx, col; row) {
             if (col == 'x') {
                 renderer.fillRect(
-                        ((x + dx) * size).to!int,
-                        ((y + dy) * size).to!int,
+                        x + (( dx) * size).to!int,
+                        y + ((dy) * size).to!int,
                         size, size);
             }
         }
@@ -77,9 +77,27 @@ void main()
                     ];
                 renderer.setColor(0, 128, 0);
                 size = 10;
-                auto x = (width / 2 / size - billboard[0].length.to!int / 2).to!int;
-                auto y = (height / 2 / size - billboard.length.to!int / 2).to!int;
+                auto x = (width / 2 - billboard[0].length.to!int * size/ 2).to!int;
+                auto y = (height / 2 - billboard.length.to!int * size/ 2).to!int;
                 renderer.drawBillboard(billboard, x, y, size);
+            }
+            {
+                // Draw a logo thing
+                auto billboard = [
+                    //TionAnima
+                    "        x            x         ",
+                    "  xxxxxx            x x        ",
+                    " x  xx              x x        ",
+                    "    xx              x x        ",
+                    "    xx             x   x       ",
+                    "    xx  x          x   x       ",
+                    "    xx     x   xx  xxxxx       ",
+                    "    xx  x x x x x x     x      ",
+                    "    xx  x x x x x x     x      ",
+                    "    xx x   x  x x x     x      ",
+                    ];
+                renderer.setColor(255, 255, 255);
+                renderer.drawBillboard(billboard, 10, 10, 10);
             }
             if (t_s >= 100) {
                 t_s = 0;
