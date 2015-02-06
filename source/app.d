@@ -85,19 +85,35 @@ void main()
                 // Draw a logo thing
                 auto billboard = [
                     //TionAnima
-                    "        x            x         ",
-                    "  xxxxxx            x x        ",
-                    " x  xx              x x        ",
-                    "    xx              x x        ",
-                    "    xx             x   x       ",
-                    "    xx  x          x   x       ",
-                    "    xx     x   xx  xxxxx       ",
-                    "    xx  x x x x x x     x      ",
-                    "    xx  x x x x x x     x      ",
-                    "    xx x   x  x x x     x      ",
+                    "                                                        ",
+                    "                                                        ",
+                    "              x                             x           ",
+                    "      xxxxxxxx               x             x x          ",
+                    "     x   xx                 x x             x         x x",
+                    "         xx                 x x                        x ",
+                    "         xx      x          x x                       x x",
+                    "         xx     x x        x   x                        ",
+                    "         xx      x         x   x         x x            ",
+                    "         xx                x   x          x             ",
+                    "    x x  xx                x   x         x x            ",
+                    "     x   xx               x     x                       ",
+                    "    x x  xx               xxxxxxx                       ",
+                    "         xx  x            x     x        x              ",
+                    "  x      xx     xx  xxx   x     x  xxx     xxx xx   xx  ",
+                    " x x     xx  x x  x x  x  x     x  x  x  x x  x  x x  x ",
+                    "  x      xx  x x  x x  x x       x x  x  x x  x  x x  x ",
+                    "         xx  x x  x x  x x       x x  x  x x  x  x x xx ",
+                    "         xx x   xx  x  x x       x x  x x  x  x  x xx x ",
+                    "                                                        ",
                     ];
-                renderer.setColor(255, 255, 255);
-                renderer.drawBillboard(billboard, 10, 10, 10);
+                renderer.setColor(
+                        t_s * 255 / 100,
+                        (sin(t_s / 20.0) * 128).to!int + 127,
+                        (cos(t_s / 20.0) * 128).to!int + 127
+                        );
+                renderer.drawBillboard(billboard,
+                        width / 2 - billboard[0].length.to!int * size / 2,
+                        height / 2 - billboard.length.to!int * size * 3 / 2, size);
             }
             if (t_s >= 100) {
                 t_s = 0;
