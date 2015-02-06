@@ -41,7 +41,7 @@ void main()
     auto factor = 1.0f;
     auto running = true;
     bool ascending = true;
-    int stage = 0;
+    int stage = 1;
     while(running) {
         ++t;
         ++t_s;
@@ -126,14 +126,31 @@ void main()
             } else {
                 renderer.setColor(0, 0, 0);
             }
-            renderer.fillRect(width / 2 - size / 2,
-                              height / 2 - size / 2,
+            renderer.fillRect(width / 2 - size,
+                              height / 2 - size,
                               size, size);
             if (t_s > 1000) {
                 stage++;
                 t_s = 0;
             }
         } else if (stage == 2) {
+            renderer.setColor(255, 255, 255);
+            renderer.fillRect(width / 2 - size,
+                              height / 2 - size,
+                              size, size);
+            auto rand = Random(0);
+            foreach (y; iota(0, height + size, size)) {
+                foreach (x; iota(0, width + size, size)) {
+                    renderer.setColor(255 - t_s, 255 - t_s, 255 - t_s);
+                    auto r1 = (uniform!"[]"(0, size/2, rand) * 2).to!int;
+                    renderer.fillRect(x, y - r1, size, t_s / 10);
+                }
+            }
+            if (t_s >= 255) {
+                stage++;
+                t_s = 0;
+            }
+        } else if (stage == 3) {
             foreach (x; iota(0, width, size+offset)) {
                 foreach(y; iota(0, height, size+offset)) {
                     renderer.drawRect((width) - (x + (width / 2)) - (size / 2),
@@ -158,7 +175,7 @@ void main()
                 t_s = 0;
                 factor = 3.0f;
             }
-        } else if (stage == 3) {
+        } else if (stage == 4) {
             int num_trails = 10;
             foreach(i; 1 .. num_trails) {
                 if (i == factor) continue;
@@ -187,7 +204,7 @@ void main()
             } else {
                 factor -= 4;
             }
-        } else if (stage == 4) {
+        } else if (stage == 5) {
             foreach (k; 1 .. 10) {
                 foreach (i; 0 .. 100) {
                     renderer.setColor(i, k, i);
@@ -203,7 +220,7 @@ void main()
                 stage++;
                 t_s = 0;
             }
-        } else if (stage == 5) {
+        } else if (stage == 6) {
             foreach (k; 1 .. 10) {
                 foreach (i; 0 .. 100) {
                     renderer.setColor(20 - i, k, i);
@@ -224,7 +241,7 @@ void main()
                 t_s = 0;
                 size = 20;
             }
-        } else if (stage == 6) {
+        } else if (stage == 7) {
             factor = 10;
                     renderer.setColor(255, 10, 100);
                 renderer.fillRect(
@@ -238,7 +255,7 @@ void main()
                 t_s = 0;
                 size = 8;
             }
-        } else if (stage == 7) {
+        } else if (stage == 8) {
             foreach (y; iota(0, height, size)) {
                 foreach (x; iota(0, width, size)) {
                     auto color = (x + t_s * 60) % (y + 1);
@@ -250,7 +267,7 @@ void main()
                 stage++;
                 t_s = 0;
             }
-        } else if (stage == 8) {
+        } else if (stage == 9) {
             renderer.setColor(255, 255, 255);
             foreach (x; iota(0, width)) {
                 auto dx = 0.0f;
