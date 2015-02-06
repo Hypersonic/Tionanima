@@ -48,7 +48,7 @@ void main()
         sdl2.processEvents();
         renderer.setColor(255, 255, 255, 0);
         if (stage == 0) {
-            auto ticks_to_load = 100;
+            auto ticks_to_load = 1000;
             {
                 // Draw the backing for the loading bar
                 renderer.setColor(255, 255, 255);
@@ -109,8 +109,8 @@ void main()
                     ];
                 renderer.setColor(
                         t_s * 255 / ticks_to_load,
-                        (sin(t_s / 20.0) * 128).to!int + 127,
-                        (cos(t_s / 20.0) * 128).to!int + 127
+                        (sin(t_s / 40.0) * 128).to!int + 127,
+                        (cos(t_s / 40.0) * 128).to!int + 127
                         );
                 renderer.drawBillboard(billboard,
                         width / 2 - billboard[0].length.to!int * size / 2,
