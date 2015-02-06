@@ -86,26 +86,26 @@ void main()
                 // Draw a logo thing
                 auto billboard = [
                     //TionAnima
-                    "                                                        ",
-                    "                                                        ",
-                    "              x                             x           ",
-                    "      xxxxxxxx               x             x x          ",
-                    "     x   xx                 x x             x         x x",
-                    "         xx                 x x                        x ",
-                    "         xx      x          x x                       x x",
-                    "         xx     x x        x   x                        ",
-                    "         xx      x         x   x         x x            ",
-                    "         xx                x   x          x             ",
-                    "    x x  xx                x   x         x x            ",
-                    "     x   xx               x     x                       ",
-                    "    x x  xx               xxxxxxx                       ",
-                    "         xx  x            x     x        x              ",
-                    "  x      xx     xx  xxx   x     x  xxx     xxx xx   xx  ",
-                    " x x     xx  x x  x x  x  x     x  x  x  x x  x  x x  x ",
-                    "  x      xx  x x  x x  x x       x x  x  x x  x  x x  x ",
-                    "         xx  x x  x x  x x       x x  x  x x  x  x x xx ",
-                    "         xx x   xx  x  x x       x x  x x  x  x  x xx x ",
-                    "                                                        ",
+                    "                                                           ",
+                    "                                                           ",
+                    "               x                             x             ",
+                    "       xxxxxxxx               x             x x            ",
+                    "      x   xx                 x x             x         x x ",
+                    "          xx                 x x                        x  ",
+                    "          xx      x          x x                       x x ",
+                    "          xx     x x        x   x                          ",
+                    "          xx      x         x   x         x x              ",
+                    "          xx                x   x          x               ",
+                    "     x x  xx                x   x         x x              ",
+                    "      x   xx               x     x                         ",
+                    "     x x  xx               xxxxxxx                         ",
+                    "          xx  x            x     x        x                ",
+                    "   x      xx     xx  xxx   x     x  xxx     xxx xx   xx    ",
+                    "  x x     xx  x x  x x  x  x     x  x  x  x x  x  x x  x   ",
+                    "   x      xx  x x  x x  x x       x x  x  x x  x  x x  x   ",
+                    "          xx  x x  x x  x x       x x  x  x x  x  x x xx   ",
+                    "          xx x   xx  x  x x       x x  x x  x  x  x xx x   ",
+                    "                                                           ",
                     ];
                 renderer.setColor(
                         t_s * 255 / ticks_to_load,
@@ -117,11 +117,23 @@ void main()
                         height / 2 - billboard.length.to!int * size * 3 / 2, size);
             }
             if (t_s >= ticks_to_load) {
+                stage++;
                 t_s = 0;
-                //stage++;
-                //t_s = 0;
             }
         } else if (stage == 1) {
+            if (t_s / 200 % 2 == 0) {
+                renderer.setColor(255, 255, 255);
+            } else {
+                renderer.setColor(0, 0, 0);
+            }
+            renderer.fillRect(width / 2 - size / 2,
+                              height / 2 - size / 2,
+                              size, size);
+            if (t_s > 1000) {
+                stage++;
+                t_s = 0;
+            }
+        } else if (stage == 2) {
             foreach (x; iota(0, width, size+offset)) {
                 foreach(y; iota(0, height, size+offset)) {
                     renderer.drawRect((width) - (x + (width / 2)) - (size / 2),
@@ -139,14 +151,14 @@ void main()
                 }
             }
             offset += 2;
-            factor += t * 0.00001f;
+            factor += t_s * 0.00001f;
             size = (width * abs(sin(t / 100.0f)) / factor).to!int + 10;
             if (factor > size * 5) {
                 stage++;
                 t_s = 0;
                 factor = 3.0f;
             }
-        } else if (stage == 2) {
+        } else if (stage == 3) {
             int num_trails = 10;
             foreach(i; 1 .. num_trails) {
                 if (i == factor) continue;
@@ -175,7 +187,7 @@ void main()
             } else {
                 factor -= 4;
             }
-        } else if (stage == 3) {
+        } else if (stage == 4) {
             foreach (k; 1 .. 10) {
                 foreach (i; 0 .. 100) {
                     renderer.setColor(i, k, i);
@@ -191,7 +203,7 @@ void main()
                 stage++;
                 t_s = 0;
             }
-        } else if (stage == 4) {
+        } else if (stage == 5) {
             foreach (k; 1 .. 10) {
                 foreach (i; 0 .. 100) {
                     renderer.setColor(20 - i, k, i);
@@ -212,7 +224,7 @@ void main()
                 t_s = 0;
                 size = 20;
             }
-        } else if (stage == 5) {
+        } else if (stage == 6) {
             factor = 10;
                     renderer.setColor(255, 10, 100);
                 renderer.fillRect(
@@ -226,7 +238,7 @@ void main()
                 t_s = 0;
                 size = 8;
             }
-        } else if (stage == 6) {
+        } else if (stage == 7) {
             foreach (y; iota(0, height, size)) {
                 foreach (x; iota(0, width, size)) {
                     auto color = (x + t_s * 60) % (y + 1);
@@ -238,7 +250,7 @@ void main()
                 stage++;
                 t_s = 0;
             }
-        } else if (stage == 7) {
+        } else if (stage == 8) {
             renderer.setColor(255, 255, 255);
             foreach (x; iota(0, width)) {
                 auto dx = 0.0f;
