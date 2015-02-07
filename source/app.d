@@ -41,7 +41,7 @@ void main()
     auto factor = 1.0f;
     auto running = true;
     bool ascending = true;
-    int stage = 1;
+    int stage = 0;
     while(running) {
         ++t;
         ++t_s;
@@ -263,7 +263,7 @@ void main()
                     renderer.fillRect(x, y, size, size);
                 }
             }
-            if (t_s > 100) {
+            if (t_s > 4000) {
                 stage++;
                 t_s = 0;
             }
