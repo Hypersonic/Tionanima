@@ -273,7 +273,7 @@ void main()
                 renderer.setColor(x, (sin(x) * 255).to!int, (cos(x) * 255).to!int);
                 auto dx = 0.0f;
                 foreach (i; 1 .. 64) {
-                    dx += cos(x / (3.0f * i) + t_s / 50.0f);
+                    dx += cos((x - width / 2) / (3.0f * i) + t_s / 50.0f);
                 }
                 renderer.drawLine(x, height / 2 + (dx.abs * 10).to!int,
                         x, height/2
