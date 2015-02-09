@@ -48,7 +48,7 @@ void main()
         sdl2.processEvents();
         renderer.setColor(255, 255, 255, 0);
         if (stage == 0) {
-            auto ticks_to_load = 1000;
+            auto ticks_to_load = 250;
             {
                 // Draw the backing for the loading bar
                 renderer.setColor(255, 255, 255);
