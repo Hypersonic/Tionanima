@@ -268,7 +268,6 @@ void main()
                 t_s = 0;
             }
         } else if (stage == 9) {
-            //renderer.setColor(255, 255, 255);
             foreach (x; iota(0, width)) {
                 renderer.setColor(x, (sin(x) * 255).to!int, (cos(x) * 255).to!int);
                 auto dx = 0.0f;
