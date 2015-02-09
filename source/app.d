@@ -41,7 +41,7 @@ void main()
     auto factor = 1.0f;
     auto running = true;
     bool ascending = true;
-    int stage = 0;
+    int stage = 9;
     while(running) {
         ++t;
         ++t_s;
@@ -272,9 +272,12 @@ void main()
             foreach (x; iota(0, width)) {
                 auto dx = 0.0f;
                 foreach (i; 1 .. 64) {
-                    dx += cos(x / (3.0f * i) + t_s / 10.0f);
+                    dx += cos(x / (3.0f * i) + t_s / 50.0f);
                 }
-                renderer.drawLine(x, height / 2 + (dx * 10).to!int,
+                renderer.drawLine(x, height / 2 + (dx.abs * 10).to!int,
+                        x, height/2
+                        );
+                renderer.drawLine(x, height / 2 + (-dx.abs * 10).to!int,
                         x, height/2
                         );
             }
