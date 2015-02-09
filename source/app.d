@@ -275,10 +275,7 @@ void main()
                     dx += cos((x + t_s - width / 2) / (3.0f * i) + t_s / 50.0f);
                 }
                 renderer.drawLine(x, height / 2 + (dx.abs * 10).to!int,
-                        x, height/2
-                        );
-                renderer.drawLine(x, height / 2 + (-dx.abs * 10).to!int,
-                        x, height/2
+                        x, height / 2 + (-dx.abs * 10).to!int,
                         );
             }
         } else {
