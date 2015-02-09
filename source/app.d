@@ -13,8 +13,8 @@ void drawBillboard(SDL2Renderer renderer, string[] billboard, int x, int y, int 
         foreach (dx, col; row) {
             if (col == 'x') {
                 renderer.fillRect(
-                        x + (( dx) * size).to!int,
-                        y + ((dy) * size).to!int,
+                        x + (dx * size).to!int,
+                        y + (dy * size).to!int,
                         size, size);
             }
         }
@@ -40,9 +40,9 @@ void main()
     auto t_s = 0; // time into the step
     auto factor = 1.0f;
     auto running = true;
-    bool ascending = true;
-    int stage = 9;
-    while(running) {
+    auto ascending = true;
+    auto stage = 9;
+    while (running) {
         ++t;
         ++t_s;
         sdl2.processEvents();
@@ -54,7 +54,7 @@ void main()
                 renderer.setColor(255, 255, 255);
                 auto low_x = width / 10;
                 auto h = height / 10;
-                renderer.fillRect(low_x, width / 2 - h / 2, width * 8 / 10,  h);
+                renderer.fillRect(low_x, width / 2 - h / 2, width * 8 / 10, h);
             }
             {
                 // Draw the "loading" bar
@@ -112,32 +112,38 @@ void main()
                         (sin(t_s / 40.0) * 128).to!int + 127,
                         (cos(t_s / 40.0) * 128).to!int + 127
                         );
-                renderer.drawBillboard(billboard,
+                renderer.drawBillboard(
+                        billboard,
                         width / 2 - billboard[0].length.to!int * size / 2,
-                        height / 2 - billboard.length.to!int * size * 3 / 2, size);
+                        height / 2 - billboard.length.to!int * size * 3 / 2, size
+                        );
             }
             if (t_s >= ticks_to_load) {
                 stage++;
                 t_s = 0;
             }
         } else if (stage == 1) {
-            if (t_s / 200 % 2 == 0) {
+            if (t_s / 200 % 2 == 0)
                 renderer.setColor(255, 255, 255);
-            } else {
+            else
                 renderer.setColor(0, 0, 0);
-            }
-            renderer.fillRect(width / 2 - size,
-                              height / 2 - size,
-                              size, size);
+
+            renderer.fillRect(
+                    width / 2 - size,
+                    height / 2 - size,
+                    size, size
+                    );
             if (t_s > 1000) {
                 stage++;
                 t_s = 0;
             }
         } else if (stage == 2) {
             renderer.setColor(255, 255, 255);
-            renderer.fillRect(width / 2 - size,
-                              height / 2 - size,
-                              size, size);
+            renderer.fillRect(
+                    width / 2 - size,
+                    height / 2 - size,
+                    size, size
+                    );
             auto rand = Random(0);
             foreach (y; iota(0, height + size, size)) {
                 foreach (x; iota(0, width + size, size)) {
@@ -152,19 +158,27 @@ void main()
             }
         } else if (stage == 3) {
             foreach (x; iota(0, width, size+offset)) {
-                foreach(y; iota(0, height, size+offset)) {
-                    renderer.drawRect((width) - (x + (width / 2)) - (size / 2),
+                foreach (y; iota(0, height, size+offset)) {
+                    renderer.drawRect(
+                            (width) - (x + (width / 2)) - (size / 2),
                             (height) - (y + (height / 2)) - (size / 2),
-                            size, size);
-                    renderer.drawRect(x + (width / 2) - (size/ 2),
+                            size, size
+                            );
+                    renderer.drawRect(
+                            x + (width / 2) - (size/ 2),
                             (height) - (y + (height / 2)) - (size/ 2),
-                            size, size);
-                    renderer.drawRect((width) - (x + (width / 2)) - (size / 2),
+                            size, size
+                            );
+                    renderer.drawRect(
+                            (width) - (x + (width / 2)) - (size / 2),
                             y + (height / 2) - (size / 2),
-                            size, size);
-                    renderer.drawRect(x + (width / 2) - (size / 2),
+                            size, size
+                            );
+                    renderer.drawRect(
+                            x + (width / 2) - (size / 2),
                             y + (height / 2) - (size / 2),
-                            size, size);
+                            size, size
+                            );
                 }
             }
             offset += 2;
@@ -177,7 +191,7 @@ void main()
             }
         } else if (stage == 4) {
             int num_trails = 10;
-            foreach(i; 1 .. num_trails) {
+            foreach (i; 1 .. num_trails) {
                 if (i == factor) continue;
                 float theta = t.to!float / ((factor * 25 )+ i);
                 foreach (r; iota(0, factor)) {
@@ -269,12 +283,17 @@ void main()
             }
         } else if (stage == 9) {
             foreach (x; iota(0, width)) {
-                renderer.setColor(x - t_s, (sin(x - t_s) * 255).to!int, (cos(x - t_s) * 255).to!int);
+                renderer.setColor(
+                        x - t_s,
+                        (sin(x - t_s) * 255).to!int,
+                        (cos(x - t_s) * 255).to!int
+                        );
                 auto dx = 0.0f;
                 foreach (i; 1 .. 64) {
                     dx += cos((x + t_s - width / 2) / (3.0f * i) + t_s / 50.0f);
                 }
-                renderer.drawLine(x, height / 2 + (dx.abs * 10).to!int,
+                renderer.drawLine(
+                        x, height / 2 + (dx.abs * 10).to!int,
                         x, height / 2 + (-dx.abs * 10).to!int,
                         );
             }
