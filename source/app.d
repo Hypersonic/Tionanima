@@ -243,7 +243,7 @@ void main()
             }
         } else if (stage == 7) {
             factor = 10;
-                    renderer.setColor(255, 10, 100);
+            renderer.setColor(255, 10, 100);
                 renderer.fillRect(
                         (t_s * factor).to!int,
                         height / 2 - size / t_s / 2,
