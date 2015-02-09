@@ -268,8 +268,9 @@ void main()
                 t_s = 0;
             }
         } else if (stage == 9) {
-            renderer.setColor(255, 255, 255);
+            //renderer.setColor(255, 255, 255);
             foreach (x; iota(0, width)) {
+                renderer.setColor(x, (sin(x) * 255).to!int, (cos(x) * 255).to!int);
                 auto dx = 0.0f;
                 foreach (i; 1 .. 64) {
                     dx += cos(x / (3.0f * i) + t_s / 50.0f);
