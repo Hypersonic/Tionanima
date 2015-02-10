@@ -324,9 +324,9 @@ void main()
             }
         } else if (stage == 10) {
             foreach (x; iota(0, t_s)) {
+                if (t_s - x > 255) break; // finish this loop if we're too low
                 auto color = ((x / t_s.to!float) * 255).to!int;
-                if (t_s - x > 255) continue; // Skip if we're too low
-                
+
                 renderer.setColor(color, color, color);
                 renderer.fillCircle(
                         x,
