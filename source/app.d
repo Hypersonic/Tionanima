@@ -7,6 +7,7 @@ import std.random;
 
 import gfm.core;
 import gfm.sdl2;
+import gfm.math;
 
 void drawBillboard(SDL2Renderer renderer, string[] billboard, int x, int y, int size) {
     foreach (dy, row; billboard) {
@@ -20,6 +21,26 @@ void drawBillboard(SDL2Renderer renderer, string[] billboard, int x, int y, int 
         }
     }
 }
+
+void drawCircle(SDL2Renderer rend, int x, int y, int r, float resolution=.001) {
+    foreach (theta; iota(0.0, 2 * PI, resolution)) {
+        rend.drawPoint(
+                x + (r * cos(theta)).to!int,
+                y + (r * sin(theta)).to!int);
+    }
+}
+
+// Worst fillCircle ever? Probably!
+void fillCircle(SDL2Renderer rend, int x, int y, int r, float resolution=.001) {
+    foreach (theta; iota(0.0, 2 * PI, resolution)) {
+        rend.fillRect(
+                x,
+                y,
+                (r * cos(theta)).to!int,
+                (r * sin(theta)).to!int);
+    }
+}
+
 void main()
 {
     int width = 1000;
@@ -41,7 +62,7 @@ void main()
     auto factor = 1.0f;
     auto running = true;
     auto ascending = true;
-    auto stage = 9;
+    auto stage = 10;
     while (running) {
         ++t;
         ++t_s;
@@ -296,6 +317,22 @@ void main()
                         x, height / 2 + (dx.abs * 10).to!int,
                         x, height / 2 + (-dx.abs * 10).to!int,
                         );
+                if (t_s > 1500) {
+                    stage++;
+                    t_s = 0;
+                }
+            }
+        } else if (stage == 10) {
+            foreach (x; iota(0, t_s)) {
+                auto color = ((x / t_s.to!float) * 255).to!int;
+                if (t_s - x > 255) continue; // Skip if we're too low
+                
+                renderer.setColor(color, color, color);
+                renderer.fillCircle(
+                        x,
+                        width / 2 + (t_s.clamp(0, height/2) * sin(x / 100.0)).to!int,
+                        10,
+                        .5);
             }
         } else {
             running = false;
