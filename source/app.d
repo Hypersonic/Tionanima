@@ -328,11 +328,19 @@ void main()
                 if (t_s - x > 255) continue; // Skip if we're too low
 
                 renderer.setColor(color, color, color);
-                renderer.fillCircle(
-                        x,
-                        width / 2 + (t_s.clamp(0, height/2) * sin(x / 100.0)).to!int,
-                        10,
-                        .5);
+                foreach (i; 1 .. 10) {
+                    renderer.fillCircle(
+                            x,
+                            width / 2 + (t_s.clamp(0, height/2 / i) * sin(x / 100.0)).to!int,
+                            10,
+                            .5);
+
+                    renderer.fillCircle(
+                            x,
+                            width / 2 - (t_s.clamp(0, height/2 / i) * sin(x / 100.0)).to!int,
+                            10,
+                            .5);
+                }
             }
         } else {
             running = false;
