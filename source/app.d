@@ -62,7 +62,7 @@ void main()
     auto factor = 1.0f;
     auto running = true;
     auto ascending = true;
-    auto stage = 10;
+    auto stage = 11;
     while (running) {
         ++t;
         ++t_s;
@@ -329,21 +329,32 @@ void main()
                 renderer.setColor(color, color, color);
                 foreach (i; 1 .. 10) {
                     renderer.fillCircle(
-                            x,
-                            width / 2 + (t_s.clamp(0, height/2 / i) * sin(x / 100.0)).to!int,
+                            x * 4, 
+                            width / 2 + (t_s / i * sin(x / 10.0)).to!int,
                             10,
                             .5);
 
                     renderer.fillCircle(
-                            x,
-                            width / 2 - (t_s.clamp(0, height/2 / i) * sin(x / 100.0)).to!int,
+                            x * 4,
+                            width / 2 - (t_s / i * sin(x / 10.0)).to!int,
                             10,
                             .5);
                 }
             }
-            if (t_s - 300 > width) { // once we're a bit past the end, advance
+            if (t_s * 2 - 128 > width) { // once we're a bit past the end, advance
                 stage++;
                 t_s = 0;
+            }
+        } else if (stage == 11) {
+            renderer.setColor(255, 255, 255);
+            auto rand = Random(t_s);
+            auto timescale = 100.0;
+            foreach (x; iota(0, width, size*2)) {
+                foreach (y; iota(0, height, size*2)) {
+                    renderer.fillRect(x + (sin(t_s / timescale) * uniform(-size, size, rand)).to!int,
+                            y + (sin(t_s / timescale) * uniform(-size, size, rand)).to!int,
+                            size, size);
+                }
             }
         } else {
             running = false;
