@@ -323,9 +323,8 @@ void main()
                 }
             }
         } else if (stage == 10) {
-            foreach (x; iota(0, t_s)) {
+            foreach (x; iota(t_s - 255, t_s)) {
                 auto color = ((x / t_s.to!float) * 255).to!int;
-                if (t_s - x > 255) continue; // Skip if we're too low
 
                 renderer.setColor(color, color, color);
                 foreach (i; 1 .. 10) {
@@ -341,6 +340,10 @@ void main()
                             10,
                             .5);
                 }
+            }
+            if (t_s - 300 > width) { // once we're a bit past the end, advance
+                stage++;
+                t_s = 0;
             }
         } else {
             running = false;
