@@ -357,7 +357,7 @@ void main()
                             size, size);
                 }
             }
-            if (t_s > 321) {
+            if (t_s > 640) {
                 stage++;
                 t_s = 0;
             }
