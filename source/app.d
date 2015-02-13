@@ -351,10 +351,15 @@ void main()
             auto timescale = 100.0;
             foreach (x; iota(0, width, size*2)) {
                 foreach (y; iota(0, height, size*2)) {
+                    // shake a bit by a sin of a combination of random and t_s
                     renderer.fillRect(x + (sin(t_s / timescale) * uniform(-size, size, rand)).to!int,
                             y + (sin(t_s / timescale) * uniform(-size, size, rand)).to!int,
                             size, size);
                 }
+            }
+            if (t_s > 321) {
+                stage++;
+                t_s = 0;
             }
         } else {
             running = false;
