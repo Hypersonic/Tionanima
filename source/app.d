@@ -1,9 +1,10 @@
 import std.stdio;
-import std.typecons;
+import std.typecons : scoped;
 import std.math;
 import std.range;
 import std.conv;
 import std.random;
+import std.algorithm;
 
 import gfm.core;
 import gfm.sdl2;
@@ -62,7 +63,7 @@ void main()
     auto factor = 1.0f;
     auto running = true;
     auto ascending = true;
-    auto stage = 12;
+    auto stage = 13;
     while (running) {
         ++t;
         ++t_s;
@@ -396,6 +397,27 @@ void main()
 
             renderer.setColor(0, 0, 0);
             renderer.drawBillboard(billboard, width/2 - billboard[0].length.to!int * size/2, height/2 - billboard.length.to!int * size/2, size);
+            if (t_s > 2000) {
+                stage++;
+                t_s = 0;
+            }
+        } else if (stage == 13) {
+            foreach (i; 0 .. height) {
+                auto rbillboard = [
+                    "x ",
+                    " x",
+                    "x ",
+                ];
+                auto dbillboard = [
+                    "x x",
+                    " x ",
+                ];
+                renderer.drawBillboard(rbillboard, t_s % width, i * 4 * size, size);
+                renderer.drawBillboard(rbillboard.map!(s => s.dup.reverse.to!string).array, width - t_s % width, i * 4 * size, size);
+
+                renderer.drawBillboard(dbillboard, i * 4 * size, t_s % height, size);
+                renderer.drawBillboard(dbillboard.dup.reverse.array, i * 4 * size, height - t_s % height, size);
+            }
         } else {
             running = false;
         }
