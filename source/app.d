@@ -62,7 +62,7 @@ void main()
     auto factor = 1.0f;
     auto running = true;
     auto ascending = true;
-    auto stage = 11;
+    auto stage = 12;
     while (running) {
         ++t;
         ++t_s;
@@ -360,6 +360,11 @@ void main()
             if (t_s > 640) {
                 stage++;
                 t_s = 0;
+            }
+        } else if (stage == 12) {
+            auto rand = Random(0);
+            foreach (i; iota(1, t_s)) {
+                renderer.drawLine(0,0, uniform(0, i, rand), uniform(0, i, rand));
             }
         } else {
             running = false;
