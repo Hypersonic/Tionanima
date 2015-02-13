@@ -362,10 +362,40 @@ void main()
                 t_s = 0;
             }
         } else if (stage == 12) {
+            renderer.setColor(255, 255, 255);
             auto rand = Random(0);
             foreach (i; iota(1, t_s)) {
                 renderer.drawLine(0,0, uniform(0, i, rand), uniform(0, i, rand));
             }
+
+            auto billboard = [
+                "  xxxx  xxxx    x   xxxxx  xxx  xxxxx    ",
+                "  x   x x   x  x x    x   x   x x        ",
+                "  x   x x   x  x x    x   x     x        ",
+                "  xxxx  xxxx  x   x   x    xxx  xxxx     ",
+                "  x     x x   xxxxx   x       x x        ",
+                "  x     x  x  x   x   x   x   x x        ",
+                "  x     x   x x   x xxxxx  xxx  xxxxx    ",
+                "                                          ",
+                "            xxxxx x   x xxxxx             ",
+                "              x   x   x x                 ",
+                "              x   x   x x                 ",
+                "              x   xxxxx xxxx              ",
+                "              x   x   x x                 ",
+                "              x   x   x x                 ",
+                "              x   x   x xxxxx             ",
+                "                                          ",
+                "             xxx  x   x x   x             ",
+                "            x   x x   x xx  x             ",
+                "            x     x   x x x x             ",
+                "             xxx  x   x x x x             ",
+                "                x x   x x x x             ",
+                "            x   x x   x x  xx             ",
+                "             xxx   xxx  x   x             ",
+                ];
+
+            renderer.setColor(0, 0, 0);
+            renderer.drawBillboard(billboard, width/2 - billboard[0].length.to!int * size/2, height/2 - billboard.length.to!int * size/2, size);
         } else {
             running = false;
         }
