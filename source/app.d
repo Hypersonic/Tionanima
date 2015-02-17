@@ -416,7 +416,7 @@ void main()
                 renderer.drawBillboard(rbillboard.map!(s => s.dup.reverse.to!string).array, width - t_s % width, i * 4 * size, size);
 
                 renderer.drawBillboard(dbillboard, i * 4 * size, t_s % height, size);
-                renderer.drawBillboard(dbillboard.dup.reverse.array, i * 4 * size, height - t_s % height, size);
+                renderer.drawBillboard(dbillboard.dup.reverse, i * 4 * size, height - t_s % height, size);
             }
         } else {
             running = false;
