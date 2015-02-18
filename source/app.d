@@ -434,31 +434,37 @@ void main()
                 t_s = 0;
             }
         } else if (stage == 14) {
-            float x = 0;
-            float y = height;
-            float vy = -100.0;
-            float vx = 2.0;
+            const int num_ents = 5;
+            float[num_ents] xs;// = 0;
+            float[num_ents] ys;// = height;
+            float[num_ents] vys; //= -100.0;
+            float[num_ents] vxs;// = 2.0;
+            foreach (i; 0 .. num_ents) {
+                xs[i] = 0;
+                ys[i] = /*height -*/ (i * 100);
+                vys[i] = -100.0;
+                vxs[i] = i.to!float + 1;
+            }
             float timestep = 0.01;
             // Simulate from t = 0 to our timestep
             foreach (step; iota(0.0, t_s / 10, timestep)) {
-                vy += 9.81 * timestep;//g
+                foreach (i; 0 .. num_ents) {
+                    vys[i] += 9.81 * timestep;//g
 
-                if (y > height) vy = -abs(vy) * .9; // bounce9
+                    if (ys[i] > height) vys[i] = -abs(vys[i]) * .9; // bounce9
 
-                if (y > height) vx *= .99; // friction when we're on the ground
+                    if (ys[i] > height) vxs[i] *= .99; // friction when we're on the ground
 
-                y += vy * timestep;
-                x += vx * timestep;
-                renderer.setColor(
-                        255,
-                        //(step / (t_s / 10) * 255).to!int,
-                        0,
-                        0
-                        );
-                renderer.fillRect(x.to!int, y.to!int, 10, 10);
+                    ys[i] += vys[i] * timestep;
+                    xs[i] += vxs[i] * timestep;
+                    renderer.setColor(255, 0, 0);
+                    renderer.fillRect(xs[i].to!int, ys[i].to!int, 10, 10);
+                }
             }
             renderer.setColor(255,255,255);
-            renderer.fillRect(x.to!int, y.to!int, 10, 10);
+            foreach (i; 0 .. num_ents) {
+                renderer.fillRect(xs[i].to!int, ys[i].to!int, 10, 10);
+            }
         } else {
             running = false;
         }
