@@ -447,7 +447,11 @@ void main()
 
                 y += (vy * timestep).to!int;
                 x += (vx * timestep).to!int;
-                renderer.setColor(255,0,0);
+                renderer.setColor(
+                        (step / (t_s / 10) * 255).to!int,
+                        0,
+                        0
+                        );
                 renderer.fillRect(x, y, 10, 10);
             }
             renderer.setColor(255,255,255);
