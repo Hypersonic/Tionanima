@@ -429,6 +429,10 @@ void main()
                         (sin(i / (width / (sin(t_s / 100.0) * 100)).to!float) * 100).to!int +height - t_s % height,
                         size);
             }
+            if (t_s >= width) {
+                stage++;
+                t_s = 0;
+            }
         } else {
             running = false;
         }
