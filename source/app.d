@@ -406,11 +406,10 @@ void main()
                 auto rbillboard = [
                     "x ",
                     " x",
-                    "x ",
                 ];
                 auto dbillboard = [
-                    "x x",
-                    " x ",
+                    "x ",
+                    " x",
                 ];
                 renderer.drawBillboard(rbillboard,
                         (-sin(i / (width / (sin(t_s / 100.0) * 100)).to!float) * 100).to!int + t_s % width,
