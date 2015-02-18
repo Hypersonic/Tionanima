@@ -63,7 +63,7 @@ void main()
     auto factor = 1.0f;
     auto running = true;
     auto ascending = true;
-    auto stage = 13;
+    auto stage = 14;
     while (running) {
         ++t;
         ++t_s;
@@ -433,6 +433,25 @@ void main()
                 stage++;
                 t_s = 0;
             }
+        } else if (stage == 14) {
+            auto x = 0;
+            auto y = height;
+            auto vy = -90.0;
+            auto vx = 10.0;
+            float timestep = 0.1;
+            // Simulate from t = 0 to our timestep
+            foreach (step; iota(0.0, t_s / 10, timestep)) {
+                vy += 9.81 * timestep;//g
+
+                if (y > height) vy = -abs(vy * 2 / 3); // bounce
+
+                y += vy.to!int * timestep;
+                x += vx.to!int * timestep;
+                renderer.setColor(255,0,0);
+                renderer.fillRect(x, y, 10, 10);
+            }
+            renderer.setColor(255,255,255);
+            renderer.fillRect(x, y, 10, 10);
         } else {
             running = false;
         }
