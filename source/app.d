@@ -434,28 +434,29 @@ void main()
                 t_s = 0;
             }
         } else if (stage == 14) {
-            auto x = 0;
-            auto y = height;
-            auto vy = -90.0;
-            auto vx = 10.0;
-            float timestep = 0.1;
+            float x = 0;
+            float y = height;
+            float vy = -100.0;
+            float vx = 2.0;
+            float timestep = 0.01;
             // Simulate from t = 0 to our timestep
             foreach (step; iota(0.0, t_s / 10, timestep)) {
                 vy += 9.81 * timestep;//g
 
-                if (y > height) vy = -abs(vy * 2 / 3); // bounce
+                if (y > height) vy = -abs(vy) * .9; // bounce
 
-                y += (vy * timestep).to!int;
-                x += (vx * timestep).to!int;
+                y += vy * timestep;
+                x += vx * timestep;
                 renderer.setColor(
-                        (step / (t_s / 10) * 255).to!int,
+                        255,
+                        //(step / (t_s / 10) * 255).to!int,
                         0,
                         0
                         );
-                renderer.fillRect(x, y, 10, 10);
+                renderer.fillRect(x.to!int, y.to!int, 10, 10);
             }
             renderer.setColor(255,255,255);
-            renderer.fillRect(x, y, 10, 10);
+            renderer.fillRect(x.to!int, y.to!int, 10, 10);
         } else {
             running = false;
         }
