@@ -445,8 +445,8 @@ void main()
 
                 if (y > height) vy = -abs(vy * 2 / 3); // bounce
 
-                y += vy.to!int * timestep;
-                x += vx.to!int * timestep;
+                y += (vy * timestep).to!int;
+                x += (vx * timestep).to!int;
                 renderer.setColor(255,0,0);
                 renderer.fillRect(x, y, 10, 10);
             }
