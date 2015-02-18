@@ -443,7 +443,9 @@ void main()
             foreach (step; iota(0.0, t_s / 10, timestep)) {
                 vy += 9.81 * timestep;//g
 
-                if (y > height) vy = -abs(vy) * .9; // bounce
+                if (y > height) vy = -abs(vy) * .9; // bounce9
+
+                if (y > height) vx *= .99; // friction when we're on the ground
 
                 y += vy * timestep;
                 x += vx * timestep;
