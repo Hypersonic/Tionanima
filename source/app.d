@@ -413,21 +413,21 @@ void main()
                     " x ",
                 ];
                 renderer.drawBillboard(rbillboard,
-                        (-sin(i / (width / 100).to!float) * 100).to!int + t_s % width,
+                        (-sin(i / (width / (sin(t_s / 100.0) * 100)).to!float) * 100).to!int + t_s % width,
                         i * rbillboard.length.to!int * size,
                         size);
                 renderer.drawBillboard(rbillboard.map!(s => s.dup.reverse.to!string).array,
-                        (sin(i / (width / 100).to!float) * 100).to!int +width - t_s % width,
+                        (sin(i / (width / (sin(t_s / 100.0) * 100)).to!float) * 100).to!int +width - t_s % width,
                         i * rbillboard.length.to!int * size,
                         size);
 
                 renderer.drawBillboard(dbillboard,
                         i * dbillboard[0].length.to!int * size,
-                        (-sin(i / (width / 100).to!float) * 100).to!int +t_s % height,
+                        (-sin(i / (width / (sin(t_s / 100.0) * 100)).to!float) * 100).to!int +t_s % height,
                         size);
                 renderer.drawBillboard(dbillboard.dup.reverse,
                         i * dbillboard[0].length.to!int * size,
-                        (sin(i / (width / 100).to!float) * 100).to!int +height - t_s % height,
+                        (sin(i / (width / (sin(t_s / 100.0) * 100)).to!float) * 100).to!int +height - t_s % height,
                         size);
             }
         } else {
